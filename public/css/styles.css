@@ -1,0 +1,44 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    box-sizing: border-box;
+}
+
+.container {
+    background-color: black;
+    min-height: 100vh;
+}
+
+.color-container {
+    display: flex;
+    justify-content: center;
+}
+
+.colors {
+    display: inline-flex;
+    height: 20em;
+    width: 15em;
+}
+
+.color1 {
+    background-color: aqua;
+}
+
+.color2 {
+    background-color: aquamarine;
+}
+
+.color3 {
+    background-color: blue;
+}
+
+.color4 {
+    background-color: lime;
+}
+
+.color5 {
+    background-color: turquoise;
+}
