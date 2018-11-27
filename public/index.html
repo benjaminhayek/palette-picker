@@ -6,7 +6,6 @@
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="css/styles.css" />
-    <script src="js/scripts.js"></script>
 </head>
 <body>
     <div class='container'>
@@ -22,17 +21,20 @@
                 Click here to generate palette
             </button>
             <form class="project-form">
-                <input type="text" class='project-input' placeholder="Select a project">
-                <select>
-                    <option>Select a Project</option>
-                </select>
+                <input type="text" class='project-input' placeholder="Name your project!">
                 <button class="save-project-btn">Save Project</button>
             </form>
             <form class="palette-form">
                 <input type="text" class="palette-name" placeholder="Palette name">
+                <select>
+                    <option>Select a Project</option>
+                </select>
                 <button class="save-palette-btn">Save Palette</button>
             </form>
         </section>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
+    <script src="js/scripts.js"></script>
 </body>
 </html>
