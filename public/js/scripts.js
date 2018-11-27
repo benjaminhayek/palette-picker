@@ -1,10 +1,10 @@
 function getRandomHex() {
     let digits = '0123456789ABCDEF';
-    let hash = '#';
+    let hex = '#';
     for (var i = 0; i < 6; i++) {
-      hash += digits[Math.floor(Math.random() * 16)];
+      hex += digits[Math.floor(Math.random() * 16)];
     }
-    return hash;
+    return hex;
   }
 
 function setRandomColor() {

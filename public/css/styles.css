@@ -10,9 +10,11 @@ body {
 .header {
     font-size: 5em;
     width: 500px;
+    padding: 10px;
     background: linear-gradient(to right, orange , yellow, green, cyan, blue, violet);
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
+    text-align: center;
 }
 
 .container {
@@ -37,7 +39,49 @@ body {
     align-items: center;
 }
 
-.generate-btn {
-    width: 200px;
-    height: 40px;
+.generate-container {
+    display: flex;
+    justify-content: center;
 }
+
+.generate-btn{
+    background:#1AAB8A;
+    color:#fff;
+    border:none;
+    position:relative;
+    height:60px;
+    font-size:1.6em;
+    padding:0 2em;
+    cursor:pointer;
+    transition:800ms ease all;
+    outline:none;
+    margin-bottom: 1em;
+  }
+
+  .generate-btn:hover{
+    background:#fff;
+    color:#1AAB8A;
+  }
+
+  .generate-btn:before,button:after{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    height:2px;
+    width:0;
+    background: #1AAB8A;
+    transition:400ms ease all;
+  }
+
+  .generate-btn:after{
+    right:inherit;
+    top:inherit;
+    left:0;
+    bottom:0;
+  }
+
+  .generate-btn:hover:before,button:hover:after{
+    width:100%;
+    transition:800ms ease all;
+  }
