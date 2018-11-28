@@ -22,12 +22,16 @@ app.locals.projects = [
   {id: 3, name: 'project 3'},
 ]
 
+//GET all projects
+//Post new palette
+//Delete existing palette
+//Get specific project
+//Post new project
+
 app.set('port', process.env.PORT || 3000);
 app.locals.title = 'Palette Picker';
 
-app.get('/', (request, response) => {
-  response.send('its working');
-});
+app.use(express.static('public'));
 
 app.listen(app.get('port'), () => {
     console.log(`${app.locals.title} is running on ${app.get('port')}.`);
