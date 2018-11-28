@@ -56,8 +56,17 @@ hr {
 
 .colors {
     display: inline-flex;
+    justify-content: center;
+    align-items: center;
     height: 20em;
     width: 7em;
+    transition: all .35s ease-out;
+}
+
+.colors:hover {
+    width: 9em;
+    transition: all .35s ease-in-out;
+    cursor: pointer;
 }
 
 .palette-form {
@@ -70,8 +79,8 @@ hr {
 }
 
 .generate-btn{
-    background: cyan;
-    color:black;
+    background: transparent;
+    color:white;
     border:none;
     position:relative;
     height:60px;
@@ -114,7 +123,5 @@ hr {
   }
 
   .fas {
-    margin-left: 45px;
-    margin-top: 150px;
     font-size: 1.5em;
   }
