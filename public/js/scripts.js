@@ -15,6 +15,20 @@ setRandomColor = () => {
     $(".color5").css("background-color", $('.color5').attr('locked') ? null : getRandomHex());
   }
 
+createProject = async (projectName) => {
+  try{
+    const url = '/api/v1/palette_projects';
+    const response = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify({name: projectName}),
+      headers: { 'Content-Type': 'application/json' }
+    })
+    const data = await response.json()
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
 postPalette = async (palette, projectId, color1, color2, color3, color4, color5) => {
   try {
     const url = '/api/v1/palette_projects';
