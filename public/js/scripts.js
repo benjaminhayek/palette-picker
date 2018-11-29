@@ -34,10 +34,19 @@ fetchProjects = async () => {
     const url = '/api/v1/palette_projects';
     const response = await fetch(url);
     const data = await response.json();
-    console.log(data)
+    populateProjectMenu(data)
   } catch (error) {
     console.log(error.message)
   }
+}
+
+populateProjectMenu = async (savedProjects) => {
+  savedProjects.map(project => {
+    return $(".drop-down").append(`
+      <option class="option">${project.name}</option>
+      `);
+  })
+
 }
 
 postPalette = async (palette, color1, color2, color3, color4, color5) => {
