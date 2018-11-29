@@ -42,19 +42,18 @@ fetchProjects = async () => {
 
 populateProjectMenu = async (savedProjects) => {
   savedProjects.map(project => {
-    return $(".drop-down").append(`
-      <option class="option">${project.name}</option>
+    return $('.drop-down').append(`
+      <option class='option'>${project.name}</option>
       `);
   })
-
 }
 
-postPalette = async (palette, color1, color2, color3, color4, color5) => {
+postPalette = async (palette, projectId, color1, color2, color3, color4, color5) => {
   try {
     const url = '/api/v1/palette_projects';
     const response = await fetch(url, {
       method: 'POST',
-      body: JSON.stringify({palette: palette, color1: color1, color2: color2, color3: color3, color4: color4, color5: color5}),
+      body: JSON.stringify({palette: palette, project_id: projectId, color1: color1, color2: color2, color3: color3, color4: color4, color5: color5}),
       headers: { 'Content-Type': 'application/json' }
     })
     const data = await response.json();
@@ -63,8 +62,22 @@ postPalette = async (palette, color1, color2, color3, color4, color5) => {
   }
 }
 
+const getMatchingPalette = async () => {
+  try {
+    const selectedPalette = $('.drop-down option:selected').text();
+    const url = '/api/v1/palette_projects';
+    const response = await fetch(url);
+    const data = await response.json();
+    const project = data.filter(project => project.name === selectedPalette)
+    return project
+  } catch (error) {
+      console.log(error.message)
+  }
+}
+
 clearInputs = () => {
-  $('.project-input').val('')
+  $('.project-input').val('');
+  $('.save-palette-btn').val('');
 }
 
 $('.save-project-btn').click(function (event) {
@@ -76,6 +89,11 @@ $('.save-project-btn').click(function (event) {
 
 $('.project-form').click(function (event) {
   event.preventDefault();
+})
+
+$('.save-palette-btn').click(function (event) {
+  event.preventDefault();
+  getMatchingPalette()
 })
 
 $(document).ready(function() {
