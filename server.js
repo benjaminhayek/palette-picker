@@ -1,33 +1,98 @@
-const express = require('express');
-const app = express();
-const bodyParser = require('body-parser');
+const express = require('express')
+const bodyParser = require('body-parser')
+const environment = process.env.NODE_ENV || 'development'
+const config = require('./knexfile')[environment]
+const database = require('knex')(config)
+const app = express()
 
-app.use(bodyParser.json());
-
-app.locals.title = 'Palette Picker';
-
-app.locals.palettes = [
-  {id: 1, name: 'Cool Colors', hex1: '#35BABC', hex2: '#1F9369', hex3: '#6664AD', hex4: '#64AD6D', hex5: '#85AD64', project_id: 1},
-  {id: 2, name: 'Warm Colors', hex1: '#6DC5B1', hex2: '#4A445C', hex3: '#000AAA', hex4: '#CB4A67', hex5: '#9DA220', project_id: 2},
-  {id: 3, name: 'Shades', hex1: '#353535', hex2: '#156345', hex3: '#F45637', hex4: '#2BBC21', hex5: '#85AD64', project_id: 1},
-  {id: 4, name: 'Basic', hex1: '#000000', hex2: '#1111111', hex3: '#222222', hex4: '#333333', hex5: '#444444', project_id: 3},
-  {id: 5, name: 'Colors', hex1: '#AAAAAA', hex2: '#BBBBBB', hex3: '#CCCCCC', hex4: '#DDDDDD', hex5: '#EEEEEE', project_id: 2},
-  {id: 6, name: 'Browns', hex1: '#FFFFFF', hex2: '#555555', hex3: '#666666', hex4: '#777777', hex5: '#888888', project_id: 2},
-  {id: 7, name: 'Grey', hex1: '#010101', hex2: '#121212', hex3: '#343434', hex4: '#565656', hex5: '#787878', project_id: 1},
-];
-
-app.locals.projects = [
-  {id: 1, name: 'project 1'},
-  {id: 2, name: 'project 2'},
-  {id: 3, name: 'project 3'},
-]
+app.use(bodyParser.json())
 
 app.set('port', process.env.PORT || 3000);
 app.locals.title = 'Palette Picker';
 
-app.get('/', (request, response) => {
-  response.send('its working');
-});
+app.use(express.static('public'));
+
+//GET all projects
+//Post new palette
+//Delete existing palette
+//Get specific project
+//Post new project
+
+app.get('/api/v1/palette_projects', (request, response) => {
+  database('palette_projects').select()
+      .then(palette_projects => {
+          response.status(200).json(palette_projects)
+      })
+      .catch(error => {
+          response.status(500).json({ error: error.message });
+      })
+})
+
+app.post('/api/v1/palette_projects', (request, response) => {
+  const project = request.body
+
+  for(let requiredParam of ['name']) {
+      if(!project[requiredParam]) {
+          response.status(422).json({error: error.message})
+      }
+  }
+
+  database('palette_projects').insert(project, 'id')
+      .then(projectIds => {
+          response.status(201).json({id: projectIds[0]})
+      })
+      .catch(error => {
+          response.status(500).json({error: error.message})
+      })
+})
+
+app.get('/api/v1/palette_projects/:id', (request, response) => {
+  const { id } = request.params
+  
+  database('palette_projects').where('id', id).select()
+      .then(project => response.status(200).json(project))
+      .catch(error => console.log(`Error fetching project: ${error.message}`))
+})
+
+app.get('/api/v1/palettes', (request, response) => {
+  database('palettes').select()
+      .then(palettes => {
+          response.status(200).json(palettes)
+      })
+      .catch(error => {
+          response.status(500).json({ error: error.message });
+      })
+})
+
+app.post('/api/v1/palette_projects/:project_id/palettes', (request, response) => {
+  const palette = request.body
+
+  for(let requiredParam of ['palette', 'color1', 'color2', 'color3', 'color4', 'color5']) {
+      if(!palette[requiredParam]) {
+          response.status(422).json({error: error.message})
+      }
+  }
+
+  database('palettes').insert(palette, 'id')  
+      .then(palettes => {
+          response.status(201).json(palettes)
+      })
+      .catch(error => {
+          response.status(500).json({error: error.message})
+      })
+})
+
+app.delete('/api/v1/palette_projects/:project_id/palettes/:palette_id', (request, response) => {
+  const { id, palette_id } = request.params
+  
+  database('palettes').where('id', palette_id).del()
+  .then(palette => {
+    response.status(201).json(id)
+  })
+  .catch(error => {
+    response.status(500).json({error: error.message})
+  })
+})
 
 app.listen(app.get('port'), () => {
     console.log(`${app.locals.title} is running on ${app.get('port')}.`);

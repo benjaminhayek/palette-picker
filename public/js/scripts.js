@@ -20,3 +20,7 @@ $(document).ready(function() {
 })
 
 $('.generate-btn').on('click', setRandomColor)
+
+$('.colors').click(function() {
+    $(this).find('i').toggleClass('fa-unlock fa-lock');
+});

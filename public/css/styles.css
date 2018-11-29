@@ -7,9 +7,34 @@ body {
     box-sizing: border-box;
 }
 
+hr {
+    width: 90%;
+    text-align: center; margin: 0 auto;
+    border-top: 1px solid cyan;
+}
+
+.main {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-areas: 'left right';
+}
+
+.left {
+    grid-area: left;
+}
+
+.right {
+    grid-area: right;
+    padding-top: 4em;
+}
+
+.head-container {
+    display: flex;
+    justify-content: center;
+}
+
 .header {
     font-size: 5em;
-    width: 500px;
     padding: 10px;
     background: linear-gradient(to right, orange , yellow, green, cyan, blue, violet);
     -webkit-text-fill-color: transparent;
@@ -31,8 +56,17 @@ body {
 
 .colors {
     display: inline-flex;
+    justify-content: center;
+    align-items: center;
     height: 20em;
-    width: 15em;
+    width: 7em;
+    transition: all .35s ease-out;
+}
+
+.colors:hover {
+    width: 9em;
+    transition: all .35s ease-in-out;
+    cursor: pointer;
 }
 
 .palette-form {
@@ -45,8 +79,8 @@ body {
 }
 
 .generate-btn{
-    background:#1AAB8A;
-    color:#fff;
+    background: transparent;
+    color:white;
     border:none;
     position:relative;
     height:60px;
@@ -60,7 +94,9 @@ body {
 
   .generate-btn:hover{
     background:#fff;
-    color:#1AAB8A;
+    background: linear-gradient(to right, orange , yellow, green, cyan, blue, violet);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
   }
 
   .generate-btn:before,button:after{
@@ -70,7 +106,7 @@ body {
     right:0;
     height:2px;
     width:0;
-    background: #1AAB8A;
+    background: linear-gradient(to right, orange , yellow, green, cyan, blue, violet);    
     transition:400ms ease all;
   }
 
@@ -84,4 +120,8 @@ body {
   .generate-btn:hover:before,button:hover:after{
     width:100%;
     transition:800ms ease all;
+  }
+
+  .fas {
+    font-size: 1.5em;
   }
