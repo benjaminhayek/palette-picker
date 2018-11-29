@@ -29,6 +29,17 @@ createProject = async (projectName) => {
   }
 }
 
+fetchProjects = async () => {
+  try{
+    const url = '/api/v1/palette_projects';
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log(data)
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
 postPalette = async (palette, color1, color2, color3, color4, color5) => {
   try {
     const url = '/api/v1/palette_projects';
@@ -50,7 +61,6 @@ clearInputs = () => {
 $('.save-project-btn').click(function (event) {
   event.preventDefault()
   let projectName = $('.project-input').val()
-  console.log(projectName)
   createProject(projectName)
   clearInputs()
 })
@@ -61,6 +71,7 @@ $('.project-form').click(function (event) {
 
 $(document).ready(function() {
     setRandomColor()
+    fetchProjects()
 })
 
 $('.generate-btn').on('click', setRandomColor)
