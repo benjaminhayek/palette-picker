@@ -82,6 +82,18 @@ app.post('/api/v1/palette_projects/:project_id/palettes', (request, response) =>
       })
 })
 
+app.delete('/api/v1/palette_projects/:project_id/palettes/:palette_id', (request, response) => {
+  const { id, palette_id } = request.params
+  
+  database('palettes').where('id', palette_id).del()
+  .then(palette => {
+    response.status(201).json(id)
+  })
+  .catch(error => {
+    response.status(500).json({error: error.message})
+  })
+})
+
 app.listen(app.get('port'), () => {
     console.log(`${app.locals.title} is running on ${app.get('port')}.`);
 });
