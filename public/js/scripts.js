@@ -8,11 +8,11 @@ function getRandomHex() {
   }
 
 function setRandomColor() {
-    $(".color1").css("background-color", getRandomHex());
-    $(".color2").css("background-color", getRandomHex());
-    $(".color3").css("background-color", getRandomHex());
-    $(".color4").css("background-color", getRandomHex());
-    $(".color5").css("background-color", getRandomHex());
+    $(".color1").css("background-color", $('.color1').attr('locked') ? null : getRandomHex());
+    $(".color2").css("background-color", $('.color2').attr('locked') ? null : getRandomHex());
+    $(".color3").css("background-color", $('.color3').attr('locked') ? null : getRandomHex());
+    $(".color4").css("background-color", $('.color4').attr('locked') ? null : getRandomHex());
+    $(".color5").css("background-color", $('.color5').attr('locked') ? null : getRandomHex());
   }
 
 $(document).ready(function() {
@@ -23,4 +23,10 @@ $('.generate-btn').on('click', setRandomColor)
 
 $('.colors').click(function() {
     $(this).find('i').toggleClass('fa-unlock fa-lock');
+});
+
+$('.colors').click(function() {
+  $(this).attr('locked', function (i, attr) {
+    return attr == 'true' ? 'false' : 'true'
+  });
 });
