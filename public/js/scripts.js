@@ -34,7 +34,7 @@ postPalette = async (palette, projectId, color1, color2, color3, color4, color5)
     const url = '/api/v1/palette_projects';
     const response = await fetch(url, {
       method: 'POST',
-      body: JSON.stringify({palette: palette, project_id: projectId, color1: color1, color2: color2, color3: color3, color4: color4, color5: color5}),
+      body: JSON.stringify({palette: palette, color1: color1, color2: color2, color3: color3, color4: color4, color5: color5}),
       headers: { 'Content-Type': 'application/json' }
     })
     const data = await response.json();
@@ -42,6 +42,12 @@ postPalette = async (palette, projectId, color1, color2, color3, color4, color5)
     console.log(error.message)
   }
 }
+
+$('save-project-btn').click(function (event) {
+  event.preventDefault()
+  const projectName = $('project-input').val()
+  createProject(projectName)
+})
 
 $(document).ready(function() {
     setRandomColor()
