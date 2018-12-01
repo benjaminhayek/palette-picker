@@ -104,6 +104,18 @@ ul {
     margin-bottom: 25px;
 }
 
+.projects {
+    font-size: 2em;
+    color: white;
+    text-align: center;
+    margin-right: 20px;
+    background: linear-gradient(to right, orange , yellow, green, cyan, blue, violet);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    border-bottom: 2px solid blue;
+    margin-bottom: 30px;
+}
+
 .drop-down {
     width: 150px;
 }

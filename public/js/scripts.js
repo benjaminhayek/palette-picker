@@ -119,11 +119,11 @@ populatePalettes = (savedPalettes) => {
     <li class='saved-palettes'>
       <h2 class='palette-name' style='color:${palette.color1}'>${palette.palette}</h2> 
       <section class=palette-colors>
-        <div class='color-block' style='background-color:${palette.color1}'></div>
-        <div class='color-block' style='background-color:${palette.color2}'></div>
-        <div class='color-block' style='background-color:${palette.color3}'></div>
-        <div class='color-block' style='background-color:${palette.color4}'></div>
-        <div class='color-block' style='background-color:${palette.color5}'></div>
+        <div class='color-block cb1' style='background-color:${palette.color1}'></div>
+        <div class='color-block cb2' style='background-color:${palette.color2}'></div>
+        <div class='color-block cb3' style='background-color:${palette.color3}'></div>
+        <div class='color-block cb4' style='background-color:${palette.color4}'></div>
+        <div class='color-block cb5' style='background-color:${palette.color5}'></div>
         <button class='delete'><i class="far fa-trash-alt" id=${palette.project_id} title=${palette.id}></i></button>
       </section>   
     </li>
@@ -144,6 +144,14 @@ deletePalette = async (paletteId, projectId) => {
   }
 }
 
+repopulateSavedPalette = (color1, color2, color3, color4, color5) => {
+  $(".color1").css({'background-color':color1});
+  $(".color2").css({'background-color':color2});
+  $(".color3").css({'background-color':color3});
+  $(".color4").css({'background-color':color4});
+  $(".color5").css({'background-color':color5});
+}
+
 clearInputs = () => {
   $('.project-input').val('');
   $('.save-palette-btn').val('');
@@ -154,13 +162,21 @@ $('.save-project-btn').click(function (event) {
   let projectName = $('.project-input').val()
   checkProjects(projectName)
   clearInputs()
+  location.reload();
 })
 
 $('.saved-project-list').click(function (event) {
+  const color1 = $(".cb1").css("background-color");
+  const color2 = $(".cb2").css("background-color");
+  const color3 = $(".cb3").css("background-color");
+  const color4 = $(".cb4").css("background-color");
+  const color5 = $(".cb5").css("background-color");
   const projectId = event.target.id
   const paletteId = event.target.title
   event.preventDefault();
   deletePalette(paletteId, projectId)
+  location.reload();
+  // repopulateSavedPalette(color1, color2, color3, color4, color5);
 })
 
 $('.project-form').click(function (event) {
@@ -178,6 +194,7 @@ $('.save-palette-btn').click(async function (event) {
   const color5 = $(".color5").css("background-color");
   postPalette(palette, projectId[0].id, color1, color2, color3, color4, color5)
   clearInputs()
+  location.reload();
 })
 
 $(document).ready(function () {
