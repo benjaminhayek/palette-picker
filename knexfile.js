@@ -3,7 +3,7 @@
 module.exports = {
  development: {
    client: 'pg',
-   connection: 'postgres://localhost/palettepicker',
+   connection: 'postgres://localhost/projects',
    migrations: {
      directory: './db/migrations',
    },

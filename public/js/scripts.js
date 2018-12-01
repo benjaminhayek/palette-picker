@@ -1,4 +1,4 @@
-function getRandomHex() {
+getRandomHex = () => {
     let digits = '0123456789ABCDEF';
     let hex = '#';
     for (var i = 0; i < 6; i++) {
@@ -7,7 +7,7 @@ function getRandomHex() {
     return hex;
   }
 
-function setRandomColor() {
+setRandomColor = () => {
     $(".color1").css("background-color", $('.color1').attr('locked') ? null : getRandomHex());
     $(".color2").css("background-color", $('.color2').attr('locked') ? null : getRandomHex());
     $(".color3").css("background-color", $('.color3').attr('locked') ? null : getRandomHex());
@@ -15,8 +15,125 @@ function setRandomColor() {
     $(".color5").css("background-color", $('.color5').attr('locked') ? null : getRandomHex());
   }
 
+createProject = async (projectName) => {
+  try{
+    const url = '/api/v1/palette_projects';
+    const response = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify({name: projectName}),
+      headers: { 'Content-Type': 'application/json' }
+    })
+    const data = await response.json()
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+fetchProjects = async () => {
+  try{
+    const url = '/api/v1/palette_projects';
+    const response = await fetch(url);
+    const data = await response.json();
+    populateProjectMenu(data)
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+populateProjectMenu = async (savedProjects) => {
+  savedProjects.map(project => {
+    return $('.drop-down').append(`
+      <option class='option'>${project.name}</option>
+      `);
+  })
+}
+
+postPalette = async (palette, projectId, color1, color2, color3, color4, color5) => {
+  try {
+    const url = '/api/v1/palette_projects/:project_id/palettes';
+    const response = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify({palette: palette, project_id: projectId, color1: color1, color2: color2, color3: color3, color4: color4, color5: color5}),
+      headers: { 'Content-Type': 'application/json' }
+    })
+    const data = await response.json();
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+getMatchingProject = async () => {
+  try {
+    const selectedPalette = $('.drop-down option:selected').text();
+    const url = '/api/v1/palette_projects';
+    const response = await fetch(url);
+    const data = await response.json();
+    const project = data.filter(project => project.name === selectedPalette);
+    return project
+  } catch (error) {
+      console.log(error.message)
+  }
+}
+
+getMatchingPalettes = async () => {
+  try {
+    const url = '/api/v1/palettes';
+    const response = await fetch(url);
+    const data = await response.json();
+    const matchingPalettes = data.filter(palette => palette.project_id)
+    console.log(matchingPalettes)
+    return matchingPalettes
+  } catch (error) { 
+    console.log(error.message)  
+  }
+}
+
+deletePalette = async (palette, project) => {
+  const paletteId = palette[0].id;
+  const projectId = project.id
+  const url = `/api/v1/palette_projects/${projectId}/palettes/${paletteId}`
+  try {
+    const response = await fetch(url, {
+      method: 'DELETE',
+    })
+    const data = await response.json()
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+clearInputs = () => {
+  $('.project-input').val('');
+  $('.save-palette-btn').val('');
+}
+
+$('.save-project-btn').click(function (event) {
+  event.preventDefault()
+  let projectName = $('.project-input').val()
+  createProject(projectName)
+  clearInputs()
+})
+
+$('.project-form').click(function (event) {
+  event.preventDefault();
+})
+
+$('.save-palette-btn').click(async function (event) {
+  event.preventDefault();
+  const projectId = await getMatchingProject();
+  const palette = $('.palette-name').val()
+  const color1 = $(".color1").css("background-color");
+  const color2 = $(".color2").css("background-color");
+  const color3 = $(".color3").css("background-color");
+  const color4 = $(".color4").css("background-color");
+  const color5 = $(".color5").css("background-color");
+  postPalette(palette, projectId[0].id, color1, color2, color3, color4, color5)
+  clearInputs()
+})
+
 $(document).ready(function() {
     setRandomColor()
+    fetchProjects()
 })
 
 $('.generate-btn').on('click', setRandomColor)
