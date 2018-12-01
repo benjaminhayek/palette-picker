@@ -29,6 +29,22 @@ createProject = async (projectName) => {
   }
 }
 
+checkProjects = async (projectName) => {
+  try {
+    const url = '/api/v1/palette_projects';
+    const response = await fetch(url);
+    const data = await response.json()
+    const taken = data.find(name => name.name === projectName)
+    if(taken) {
+      alert('That name is taken please choose a new one')
+    } else {
+      createProject(projectName)
+    }
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
 fetchProjects = async () => {
   try{
     const url = '/api/v1/palette_projects';
@@ -136,7 +152,7 @@ clearInputs = () => {
 $('.save-project-btn').click(function (event) {
   event.preventDefault()
   let projectName = $('.project-input').val()
-  createProject(projectName)
+  checkProjects(projectName)
   clearInputs()
 })
 

@@ -104,8 +104,13 @@ ul {
     margin-bottom: 25px;
 }
 
+.drop-down {
+    width: 150px;
+}
+
 .saved-palettes {
     list-style-type: none; 
+    margin-left: 10px;
 }
 
 .project-name {
