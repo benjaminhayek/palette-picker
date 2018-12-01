@@ -13,6 +13,10 @@ hr {
     border-top: 1px solid cyan;
 }
 
+ul {
+    border-bottom: 1px solid white;
+}
+
 .main {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -52,6 +56,89 @@ hr {
     justify-content: center;
     padding-top: 4em;
     padding-bottom: 4em;
+}
+
+.saved-project-list {
+    color: white;
+    list-style-type: none;
+    width: 90%
+}
+
+.fa-trash-alt:before {
+    content: "\f2ed";
+    margin-left: 10px;
+}
+
+.palette-colors {
+    margin-bottom: 10px;
+}
+
+.delete {
+    background-color: transparent;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.save-pallete-container {
+    display: flex;
+    justify-content: center;
+}
+
+.palette-name, .project-input {
+    height: 25px;
+    width: 200px;
+    border: none;
+}
+
+.drop-down, .save-palette-btn, .save-project-btn {
+    height: 25px;
+    width: 100px;
+    background-color: blue;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.project-input {
+    margin-bottom: 25px;
+}
+
+.projects {
+    font-size: 2em;
+    color: white;
+    text-align: center;
+    margin-right: 20px;
+    background: linear-gradient(to right, orange , yellow, green, cyan, blue, violet);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    border-bottom: 2px solid blue;
+    margin-bottom: 30px;
+}
+
+.drop-down {
+    width: 150px;
+}
+
+.saved-palettes {
+    list-style-type: none; 
+    margin-left: 10px;
+}
+
+.project-name {
+    font-size: 1em;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.palette-name {
+    font-size: .5em;
+}
+
+.color-block {
+    height: 20px;
+    width: 20px;
+    display: inline-block;
 }
 
 .colors {
