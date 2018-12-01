@@ -75,6 +75,19 @@ getMatchingProject = async () => {
   }
 }
 
+getMatchingPalettes = async () => {
+  try {
+    const url = '/api/v1/palettes';
+    const response = await fetch(url);
+    const data = await response.json();
+    const matchingPalettes = data.filter(palette => palette.project_id)
+    console.log(matchingPalettes)
+    return matchingPalettes
+  } catch (error) { 
+    console.log(error.message)  
+  }
+}
+
 clearInputs = () => {
   $('.project-input').val('');
   $('.save-palette-btn').val('');
@@ -101,6 +114,7 @@ $('.save-palette-btn').click(async function (event) {
   const color4 = $(".color4").css("background-color");
   const color5 = $(".color5").css("background-color");
   postPalette(palette, projectId[0].id, color1, color2, color3, color4, color5)
+  clearInputs()
 })
 
 $(document).ready(function() {
