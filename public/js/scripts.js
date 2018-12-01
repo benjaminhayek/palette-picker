@@ -34,16 +34,27 @@ fetchProjects = async () => {
     const url = '/api/v1/palette_projects';
     const response = await fetch(url);
     const data = await response.json();
-    populateProjectMenu(data)
+    populateProjectMenu(data);
+    populateProjects(data);
   } catch (error) {
     console.log(error.message)
   }
 }
 
-populateProjectMenu = async (savedProjects) => {
+populateProjectMenu = (savedProjects) => {
   savedProjects.map(project => {
     return $('.drop-down').append(`
       <option class='option'>${project.name}</option>
+      `);
+  })
+}
+
+populateProjects = (savedProjects) => {
+  savedProjects.map(project => {
+    return $('.saved-project-list').append(`
+    <ul class="project-index">
+      <h1>${project.name}</h1>
+    </ul>
       `);
   })
 }
@@ -80,12 +91,19 @@ getMatchingPalettes = async () => {
     const url = '/api/v1/palettes';
     const response = await fetch(url);
     const data = await response.json();
-    const matchingPalettes = data.filter(palette => palette.project_id)
-    console.log(matchingPalettes)
-    return matchingPalettes
+    populatePalettes(data)
   } catch (error) { 
     console.log(error.message)  
   }
+}
+
+populatePalettes = (savedPalettes) => {
+  savedPalettes.map(palettes => {
+    return $('.saved-palettes').append(`
+    <li class="project-index">
+      <h1>${project.name}</h1>
+    </ul>
+      `);
 }
 
 deletePalette = async (palette, project) => {
@@ -131,9 +149,9 @@ $('.save-palette-btn').click(async function (event) {
   clearInputs()
 })
 
-$(document).ready(function() {
-    setRandomColor()
-    fetchProjects()
+$(document).ready(function () {
+    setRandomColor();
+    fetchProjects();
 })
 
 $('.generate-btn').on('click', setRandomColor)

@@ -54,6 +54,11 @@ hr {
     padding-bottom: 4em;
 }
 
+.saved-project-list {
+    color: white;
+    list-style-type: none;
+}
+
 .colors {
     display: inline-flex;
     justify-content: center;
