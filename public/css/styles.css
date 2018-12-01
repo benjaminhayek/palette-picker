@@ -13,6 +13,10 @@ hr {
     border-top: 1px solid cyan;
 }
 
+ul {
+    border-bottom: 1px solid white;
+}
+
 .main {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -57,11 +61,16 @@ hr {
 .saved-project-list {
     color: white;
     list-style-type: none;
+    width: 90%
 }
 
 .fa-trash-alt:before {
     content: "\f2ed";
     margin-left: 10px;
+}
+
+.palette-colors {
+    margin-bottom: 10px;
 }
 
 .delete {
@@ -71,12 +80,38 @@ hr {
     cursor: pointer;
 }
 
+.save-pallete-container {
+    display: flex;
+    justify-content: center;
+}
+
+.palette-name, .project-input {
+    height: 25px;
+    width: 200px;
+    border: none;
+}
+
+.drop-down, .save-palette-btn, .save-project-btn {
+    height: 25px;
+    width: 100px;
+    background-color: blue;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.project-input {
+    margin-bottom: 25px;
+}
+
 .saved-palettes {
     list-style-type: none; 
 }
 
 .project-name {
     font-size: 1em;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 .palette-name {
