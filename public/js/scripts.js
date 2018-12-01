@@ -52,8 +52,8 @@ populateProjectMenu = (savedProjects) => {
 populateProjects = (savedProjects) => {
   savedProjects.map(project => {
     return $('.saved-project-list').append(`
-    <ul>
-      <h1>${project.name}</h1>
+    <ul class=${project.id}>
+      <h1 class='project-name'>${project.name}</h1>
     </ul>
       `);
   })
@@ -99,16 +99,15 @@ getMatchingPalettes = async () => {
 
 populatePalettes = (savedPalettes) => {
   savedPalettes.map(palette => {
-    console.log(palette)
-    return $('.saved-palettes').append(`
-    <li>
-      <h2>${palette.palette}</h2> 
+    return $(`.${palette.project_id}`).append(`
+    <li class='saved-palettes'>
+      <h2 class='palette-name'>${palette.palette}</h2> 
       <section class=palette-colors>
-        <div class='color' style='background-color:${palette.color1}'></div>
-        <div class='color' style='background-color:${palette.color2}'></div>
-        <div class='color' style='background-color:${palette.color3}'></div>
-        <div class='color' style='background-color:${palette.color4}'></div>
-        <div class='color' style='background-color:${palette.color5}'></div>
+        <div class='color-block' style='background-color:${palette.color1}'></div>
+        <div class='color-block' style='background-color:${palette.color2}'></div>
+        <div class='color-block' style='background-color:${palette.color3}'></div>
+        <div class='color-block' style='background-color:${palette.color4}'></div>
+        <div class='color-block' style='background-color:${palette.color5}'></div>
       </section>   
     </li>
       `);
