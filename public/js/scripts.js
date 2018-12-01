@@ -52,7 +52,7 @@ populateProjectMenu = (savedProjects) => {
 populateProjects = (savedProjects) => {
   savedProjects.map(project => {
     return $('.saved-project-list').append(`
-    <ul class="project-index">
+    <ul>
       <h1>${project.name}</h1>
     </ul>
       `);
@@ -98,12 +98,21 @@ getMatchingPalettes = async () => {
 }
 
 populatePalettes = (savedPalettes) => {
-  savedPalettes.map(palettes => {
+  savedPalettes.map(palette => {
+    console.log(palette)
     return $('.saved-palettes').append(`
-    <li class="project-index">
-      <h1>${project.name}</h1>
-    </ul>
+    <li>
+      <h2>${palette.palette}</h2> 
+      <section class=palette-colors>
+        <div class='color' style='background-color:${palette.color1}'></div>
+        <div class='color' style='background-color:${palette.color2}'></div>
+        <div class='color' style='background-color:${palette.color3}'></div>
+        <div class='color' style='background-color:${palette.color4}'></div>
+        <div class='color' style='background-color:${palette.color5}'></div>
+      </section>   
+    </li>
       `);
+  })
 }
 
 deletePalette = async (palette, project) => {
@@ -152,6 +161,7 @@ $('.save-palette-btn').click(async function (event) {
 $(document).ready(function () {
     setRandomColor();
     fetchProjects();
+    getMatchingPalettes();
 })
 
 $('.generate-btn').on('click', setRandomColor)
