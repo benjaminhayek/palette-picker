@@ -88,6 +88,20 @@ getMatchingPalettes = async () => {
   }
 }
 
+deletePalette = async (palette, project) => {
+  const paletteId = palette[0].id;
+  const projectId = project.id
+  const url = `/api/v1/palette_projects/${projectId}/palettes/${paletteId}`
+  try {
+    const response = await fetch(url, {
+      method: 'DELETE',
+    })
+    const data = await response.json()
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
 clearInputs = () => {
   $('.project-input').val('');
   $('.save-palette-btn').val('');
