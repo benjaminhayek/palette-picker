@@ -59,6 +59,18 @@ hr {
     list-style-type: none;
 }
 
+.fa-trash-alt:before {
+    content: "\f2ed";
+    margin-left: 10px;
+}
+
+.delete {
+    background-color: transparent;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
 .saved-palettes {
     list-style-type: none; 
 }

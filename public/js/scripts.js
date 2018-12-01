@@ -101,26 +101,26 @@ populatePalettes = (savedPalettes) => {
   savedPalettes.map(palette => {
     return $(`.${palette.project_id}`).append(`
     <li class='saved-palettes'>
-      <h2 class='palette-name'>${palette.palette}</h2> 
+      <h2 class='palette-name' style='color:${palette.color1}'>${palette.palette}</h2> 
       <section class=palette-colors>
         <div class='color-block' style='background-color:${palette.color1}'></div>
         <div class='color-block' style='background-color:${palette.color2}'></div>
         <div class='color-block' style='background-color:${palette.color3}'></div>
         <div class='color-block' style='background-color:${palette.color4}'></div>
         <div class='color-block' style='background-color:${palette.color5}'></div>
+        <button class='delete'><i class="far fa-trash-alt" id=${palette.project_id} title=${palette.id}></i></button>
       </section>   
     </li>
       `);
   })
 }
 
-deletePalette = async (palette, project) => {
-  const paletteId = palette[0].id;
-  const projectId = project.id
+deletePalette = async (paletteId, projectId) => {
   const url = `/api/v1/palette_projects/${projectId}/palettes/${paletteId}`
   try {
     const response = await fetch(url, {
       method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' }
     })
     const data = await response.json()
   } catch (error) {
@@ -138,6 +138,13 @@ $('.save-project-btn').click(function (event) {
   let projectName = $('.project-input').val()
   createProject(projectName)
   clearInputs()
+})
+
+$('.saved-project-list').click(function (event) {
+  const projectId = event.target.id
+  const paletteId = event.target.title
+  event.preventDefault();
+  deletePalette(paletteId, projectId)
 })
 
 $('.project-form').click(function (event) {
